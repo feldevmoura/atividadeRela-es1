@@ -3,6 +3,7 @@ const app = express();
 const PORT = 3000;
 
 const db = require('./database/models/index');
+const Store = require('./database/models/Store');
 
 app.use(express.json());
 
@@ -28,18 +29,29 @@ app.post('/products', async (req, res) => {
 })
 
 //read
-app.get('/products', async (_, res) => {
+app.get('/products', async (_, res) => { 
   try {
-    const products = await db.Product.findAll();
-    return res.send(products)
-  } catch (error) {
-    res.send('Deu algum BO na busca')
+      const products = await db.Product.findAll({
+          include: ['stores'],
+          order: [
+            ['id', 'ASC']
+          ]
+      });
+      return res.send(products)
+  } catch(error) {
+      console.log('error', error.message)
+      res.send('Deu algum BO na busca');
   }
 })
 
 app.get('/products/types', async (_, res) => {
   try {
-    const productTypes = await db.ProductType.findAll();
+    const productTypes = await db.ProductType.findAll({
+      include: 'products', 
+      order: [
+        ['id', 'ASC']
+      ]
+    });
     return res.send(productTypes)
   } catch (error) {
     res.render('Deu algum BO na busca', error.message)

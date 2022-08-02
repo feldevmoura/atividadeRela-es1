@@ -22,3 +22,32 @@ VALUES('Eletronico', 'Eletronicos'),
 	  ('Eletrodoméstico', 'Eletrodomésticos'),
       ('Bebida','Bebidas');
       
+CREATE TABLE stores (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50),
+description VARCHAR(200)
+);
+
+CREATE TABLE stores_products (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+product_id INT,
+store_id INT
+);
+
+INSERT INTO `dh`.`stores_products` (`product_id`, `store_id`) VALUES (1, 1),
+																	 (1, 2),
+																	 (1, 3),
+																	 (2, 1),
+																	 (2, 2),
+																	 (2, 3),
+																	 (3, 1),
+																	 (3, 2),
+																	 (3, 3),
+																	 (4, 1),
+																	 (4, 2),
+																	 (4, 3),
+                                   (5, 1),
+                                   (5, 2),
+                                   (5, 3);
+SET FOREIGN_KEY_CHECKS=0;
+      

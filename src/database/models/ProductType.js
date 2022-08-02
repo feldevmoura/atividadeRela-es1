@@ -21,6 +21,12 @@ module.exports = (sequelize, dataTypes) => {
       }
   )
 
-
+  // associação UM-PARA-MUITOS da tabela Product com ProductType, UM TIPO para vários produtos, UM PRODUTO para um tipo
+  ProductType.associate = (models) => {
+    ProductType.hasMany(models.Product, {
+      as: 'products',
+      foreignKey: 'product_type'
+    })
+  }
   return ProductType
 }
